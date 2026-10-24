@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Shop Owner – Mithai Shop</title>
+<style>
+:root{--p:#c2410c;--bg:#fff6e6;--card:#fff;--tx:#3b1d0a;--mu:#7d5d45;--bd:#f0d9b0;--err:#b91c1c;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root{--bg:#150a2b;--card:#241540;--tx:#fdf1d8;--mu:#c9b6e2;--bd:#4b3377;--err:#fca5a5;--p:#f59e0b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px 14px calc(30px + env(safe-area-inset-bottom,0px))}
+main{max-width:720px;margin:0 auto}h1,h2{font-family:Georgia,serif;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.top div{display:flex;gap:8px}
+.top button,.top a,.chip{border:1.5px solid var(--p);background:none;color:var(--p);border-radius:20px;padding:6px 14px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer;text-decoration:none}
+.chip[aria-pressed="true"]{background:var(--p);color:#fff}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+input{width:100%;font:inherit;padding:11px 12px;border-radius:12px;border:1.5px solid var(--bd);background:var(--card);color:var(--tx)}
+input:focus{outline:2px solid var(--p);border-color:var(--p)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font-weight:700;font-size:16px;font-family:inherit;background:var(--p);color:#fff;cursor:pointer;margin-top:14px}
+.btn:disabled{opacity:.6}
+.err{color:var(--err);font-size:13px;min-height:18px;margin:4px 0 0}.sub{color:var(--mu);font-size:14px;margin:0}
+.line{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--bd);font-size:15px}.tot{font-weight:800;font-size:18px;border:0;padding-top:10px}
+.st{display:inline-block;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:700;background:#fde68a;color:#78350f;white-space:nowrap}
+.st.confirmed{background:#bfdbfe;color:#1e3a8a}.st.packing{background:#fed7aa;color:#7c2d12}.st.picked{background:#bbf7d0;color:#14532d}.st.rejected{background:#fecaca;color:#7f1d1d}
+.acts{display:flex;gap:8px;margin-top:10px}
+.acts button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer;background:var(--p);color:#fff}
+.acts button.rj{background:none;color:var(--err);border:1.5px solid var(--err)}
+.acts button:disabled{opacity:.5}
+[hidden]{display:none!important}
+</style></head><body><main>
+
+<section id="lg">
+<div class="top"><h1>Shop Owner Login</h1><div><a href="index.html">🏠 Home</a></div></div>
+<form class="card" id="lf" autocomplete="on">
+<label for="lu">Username</label><input id="lu" autocomplete="username" required>
+<label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password" required>
+<p class="err" id="le" role="alert"></p>
+<button class="btn" type="submit" id="lb">Log in</button>
+</form>
+</section>
+
+<section id="dash" hidden>
+<div class="top"><h1>Orders</h1><div><button type="button" id="rf">↻ Refresh</button><button type="button" id="lo">Log out</button></div></div>
+<p class="err" id="oe" role="alert"></p>
+<div class="chips" id="chips"></div>
+<div id="list"></div>
+</section>
+
+</main>
+<script>
+var T=sessionStorage.getItem("mt")||"",OD=[],FL="all",tm=null,
+SL={"new":"New",confirmed:"Confirmed",packing:"Packing in process",picked:"Picked up",rejected:"Rejected"};
+function $(i){return document.getElementById(i)}
+function E(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return "&#"+c.charCodeAt(0)+";"})}
+function inr(n){return "₹"+Math.round(n).toLocaleString("en-IN")}
+function api(p,o){o=o||{};o.headers=Object.assign({"Content-Type":"application/json"},T?{Authorization:"Bearer "+T}:{},o.headers);
+return fetch(p,o).then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.status==401&&T){out()}if(!r.ok){var e=new Error(j.error||"Request failed");e.status=r.status;throw e}return j})})}
+function show(){$("lg").hidden=!!T;$("dash").hidden=!T}
+function out(){T="";sessionStorage.removeItem("mt");clearInterval(tm);OD=[];show()}
+function load(){$("oe").textContent="";return api("/api/orders").then(function(a){OD=a;draw()}).catch(function(e){if(T)$("oe").textContent=e.message})}
+function start(){show();if(T){load();clearInterval(tm);tm=setInterval(load,20000)}}
+$("lf").onsubmit=function(e){e.preventDefault();var b=$("lb");b.disabled=true;$("le").textContent="";
+api("/api/login",{method:"POST",body:JSON.stringify({user:$("lu").value,pass:$("lp").value})}).then(function(j){T=j.token;sessionStorage.setItem("mt",T);$("lp").value="";start()}).catch(function(x){$("le").textContent=x.message}).then(function(){b.disabled=false})};
+$("lo").onclick=out;$("rf").onclick=load;
+function draw(){var ks=Object.keys(SL);
+$("chips").innerHTML=["all"].concat(ks).map(function(k){var n=k=="all"?OD.length:OD.filter(function(o){return o.status==k}).length;return "<button type='button' class='chip' data-f='"+k+"' aria-pressed='"+(FL==k)+"'>"+(k=="all"?"All":SL[k])+" ("+n+")</button>"}).join("");
+var L=OD.filter(function(o){return FL=="all"||o.status==FL});
+$("list").innerHTML=L.length?L.map(card).join(""):"<p class='sub'>No orders here yet.</p>"}
+function card(o){var a=o.status=="new"?[["confirmed","Confirm"],["rejected","Reject"]]:o.status=="confirmed"?[["packing","Start packing"]]:o.status=="packing"?[["picked","Mark picked up"]]:[];
+return "<div class='card'><div class='line'><b>"+E(o.ref)+"</b><span class='st "+E(o.status)+"'>"+E(SL[o.status]||o.status)+"</span></div>"
++"<p style='margin:6px 0'><b>"+E(o.name)+"</b> · <a href='tel:"+E(o.phone)+"'>"+E(o.phone)+"</a><br><small>Pickup: "+E(o.date)+", "+E(o.time)+"</small></p>"
++(o.items||[]).map(function(i){return "<div class='line'><span>"+E(i.t)+"</span><b>"+inr(i.a)+"</b></div>"}).join("")
++"<div class='line tot'><span>Total</span><span>"+inr(o.total)+"</span></div>"
++(o.note?"<p class='sub' style='margin-top:6px'>Note: "+E(o.note)+"</p>":"")
++(a.length?"<div class='acts'>"+a.map(function(x){return "<button type='button' data-r='"+E(o.ref)+"' data-s='"+x[0]+"'"+(x[0]=="rejected"?" class='rj'":"")+">"+x[1]+"</button>"}).join("")+"</div>":"")+"</div>"}
+$("chips").onclick=function(e){var b=e.target.closest("button");if(b){FL=b.dataset.f;draw()}};
+$("list").onclick=function(e){var b=e.target.closest("button[data-r]");if(!b)return;b.disabled=true;
+api("/api/orders/status",{method:"POST",body:JSON.stringify({ref:b.dataset.r,status:b.dataset.s})}).then(load).catch(function(x){b.disabled=false;$("oe").textContent=x.message})};
+start();
+</script></body></html>

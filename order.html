@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mithai Shop – Order Sweets</title>
+<style>
+:root{--p:#c2410c;--p2:#f59e0b;--bg:#fff6e6;--card:#fff;--tx:#3b1d0a;--mu:#7d5d45;--bd:#f0d9b0;--err:#b91c1c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150a2b;--card:#241540;--tx:#fdf1d8;--mu:#c9b6e2;--bd:#4b3377;--err:#fca5a5}}
+:root[data-theme="dark"]{--bg:#150a2b;--card:#241540;--tx:#fdf1d8;--mu:#c9b6e2;--bd:#4b3377;--err:#fca5a5}
+*{box-sizing:border-box}html{height:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:90px}
+h1,h2{font-family:Georgia,serif;margin:0}
+header{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;text-align:center;padding:22px 16px 56px}
+header h1{font-size:34px}header p{margin:4px 0 12px;font-size:14px}
+.home{display:inline-block;background:#fff;color:#3b1d0a;font-weight:700;font-size:13px;text-decoration:none;border-radius:20px;padding:5px 14px;margin-right:8px}
+.dots{display:inline-flex;gap:8px;align-items:center;font-size:13px}
+.dots button{width:24px;height:24px;border-radius:50%;border:2px solid #fff;cursor:pointer;padding:0}
+main{max-width:640px;margin:-34px auto 0;padding:0 14px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.tabs button{border:0;border-radius:14px;padding:12px 6px;font:700 15px inherit;font-family:inherit;background:var(--card);color:var(--tx);box-shadow:0 4px 12px #0002;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--p);color:#fff}
+h2{font-size:24px;margin:6px 0 2px}.sub{color:var(--mu);font-size:14px;margin:0 0 14px}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:10px}
+.row .ic{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:#fff5e0;flex:none}
+.row .t{flex:1}.row b{display:block}.row small{color:var(--mu)}
+.q{display:flex;align-items:center;gap:10px}
+.q button{width:34px;height:34px;border-radius:50%;border:0;background:var(--p);color:#fff;font-size:20px;cursor:pointer;line-height:1}
+.q button:disabled{opacity:.35;cursor:default}.q span{min-width:46px;text-align:center;font-weight:700;font-size:14px}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+input,select,textarea{width:100%;font:inherit;padding:11px 12px;border-radius:12px;border:1.5px solid var(--bd);background:var(--card);color:var(--tx)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--p);border-color:var(--p)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:14px}
+.err{color:var(--err);font-size:13px;min-height:18px;margin:2px 0 0}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:700 16px inherit;font-family:inherit;background:var(--p);color:#fff;cursor:pointer;margin-top:12px}
+.btn.alt{background:none;color:var(--p);border:2px solid var(--p)}
+.line{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--bd);font-size:15px}
+.tot{font-weight:800;font-size:18px;border:0;padding-top:10px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:2px solid var(--p);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:5}
+.bar button{border:0;border-radius:24px;background:var(--p);color:#fff;font:700 15px inherit;font-family:inherit;padding:11px 20px;cursor:pointer}
+.pane[hidden]{display:none}
+.ok{text-align:center;padding:20px 10px}.ok h2{color:var(--p)}
+pre{white-space:pre-wrap;text-align:left;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px;font:13px/1.5 ui-monospace,monospace}
+button,.btn{font-family:inherit}.btn{font-size:16px;font-weight:700}.tabs button{font-size:15px;font-weight:700}.bar button{font-size:15px;font-weight:700}
+</style></head><body>
+<header>
+<h1>Mithai Shop</h1><p>Happy Diwali! Fresh festive sweets · Pre-order for pickup</p>
+<a class="home" href="index.html">🏠 Home</a><div class="dots">Theme:
+<button style="background:#c2410c" data-c="#c2410c,#f59e0b" aria-label="Orange theme"></button>
+<button style="background:#9d174d" data-c="#9d174d,#ec4899" aria-label="Pink theme"></button>
+<button style="background:#0f766e" data-c="#0f766e,#34d399" aria-label="Green theme"></button>
+<button style="background:#1e1b4b" data-c="#312e81,#6366f1" aria-label="Indigo theme"></button>
+</div></header>
+<main>
+<div class="tabs" role="tablist">
+<button role="tab" data-t="menu" aria-selected="true">🍬 Menu</button>
+<button role="tab" data-t="box" aria-selected="false">🎁 Gift Box</button>
+<button role="tab" data-t="order" aria-selected="false">📝 My Order</button>
+</div>
+
+<section class="pane" id="menu">
+<h2>Festival Menu</h2><p class="sub">Price per kg · add in steps of 250 g</p><div id="list"></div>
+</section>
+
+<section class="pane" id="box" hidden>
+<h2>Gift Box Builder</h2><p class="sub">Pick a box size and any 4 sweets – price is based on your picks</p>
+<div class="card">
+<label for="bs">Box size</label>
+<select id="bs"><option value="0.5">Classic Box · 500 g</option><option value="1">Grand Box · 1 kg</option></select>
+<div id="picks"></div>
+<label for="bq">Number of boxes</label>
+<input id="bq" type="number" min="1" max="20" value="1" inputmode="numeric">
+<p class="sub" id="bp" style="margin-top:10px"></p>
+<p class="err" id="be"></p>
+<button class="btn" id="addbox" type="button">Add box to order</button>
+</div>
+</section>
+
+<section class="pane" id="order" hidden>
+<h2>Your Order</h2><p class="sub">Review items and share your details for pickup</p>
+<div class="card" id="sum"></div>
+<form class="card" id="f" novalidate>
+<label for="nm">Full name</label><input id="nm" autocomplete="name" required>
+<p class="err" id="e1"></p>
+<label for="ph">Mobile number (WhatsApp)</label><input id="ph" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit number" required>
+<p class="err" id="e2"></p>
+<label for="dt">Pickup date</label><input id="dt" type="date" required>
+<p class="err" id="e3"></p>
+<label for="tm">Pickup time</label>
+<select id="tm"><option>9 am – 12 pm</option><option>12 pm – 3 pm</option><option>3 pm – 6 pm</option><option>6 pm – 9 pm</option></select>
+<label for="nt">Notes (optional)</label><textarea id="nt" rows="2" placeholder="Gift message, less sugar, etc."></textarea>
+<p class="err" id="e4"></p>
+<button class="btn" type="submit">Place order</button>
+<button class="btn alt" type="button" id="cp">Copy order text</button>
+</form>
+<div class="card ok" id="done" hidden><h2>Order placed! 🪔</h2><p style="margin:4px 0">Your order reference<br><b id="ref" style="font-size:26px;letter-spacing:1px"></b></p><p id="un">Pay now with any UPI app to confirm your order.</p><a class="btn" id="upi" href="#">Pay with UPI</a><a class="btn alt" id="wa" href="#" target="_blank" rel="noopener" hidden>Send order details on WhatsApp</a><pre id="txt"></pre></div>
+</section>
+</main>
+
+<div class="bar"><div><b id="bt">₹0</b><br><small id="bi">No items yet</small></div><button id="go" type="button">View order →</button></div>
+
+<script>
+// ===== SHOP SETTINGS: edit these two lines =====
+// WhatsApp number with country code, digits only, e.g. "919876543210"
+var WA="";
+// Set the shop's UPI ID, e.g. "mithaishop@upi"
+var UPI="",ref="";
+function mkref(){var d=new Date(),c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",s="",i;for(i=0;i<4;i++)s+=c[Math.floor(Math.random()*c.length)];return "MS-"+("0"+d.getDate()).slice(-2)+("0"+(d.getMonth()+1)).slice(-2)+"-"+s}
+var S=[["Kaju Katli",1200,"#e9d9b0"],["Motichoor Ladoo",400,"#ff9f1c"],["Besan Ladoo",400,"#e0a526"],["Soan Papdi",400,"#f4d58d"],["Gulab Jamun",400,"#7a2e0a"],["Rasgulla",400,"#fffdf5"]];
+var cart={},boxes=[];
+function $(i){return document.getElementById(i)}
+function inr(n){return "₹"+Math.round(n).toLocaleString("en-IN")}
+function grams(g){return g>=1000?(g/1000)+" kg":g+" g"}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+function tab(t){document.querySelectorAll(".pane").forEach(function(p){p.hidden=p.id!=t});
+document.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t==t)});
+if(t=="order")render();window.scrollTo(0,0)}
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){tab(b.dataset.t)}});
+$("go").onclick=function(){tab("order")};
+
+function drawList(){$("list").innerHTML=S.map(function(s,i){var g=cart[i]||0;
+return '<div class="row"><div class="ic"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="12" fill="'+s[2]+'" stroke="#c9a227" stroke-width="1.5"/></svg></div><div class="t"><b>'+s[0]+'</b><small>'+inr(s[1])+' / kg</small></div><div class="q"><button type="button" data-i="'+i+'" data-d="-250" aria-label="Remove 250 g of '+s[0]+'"'+(g?'':' disabled')+'>−</button><span>'+(g?grams(g):'0')+'</span><button type="button" data-i="'+i+'" data-d="250" aria-label="Add 250 g of '+s[0]+'">+</button></div></div>'}).join("")}
+$("list").onclick=function(e){var b=e.target.closest("button");if(!b)return;var i=b.dataset.i,g=(cart[i]||0)+ +b.dataset.d;if(g<=0)delete cart[i];else cart[i]=g;drawList();totals()};
+
+function boxPrice(b){var s=0;b.items.forEach(function(i){s+=S[i][1]*b.size/4});return s*b.qty}
+function total(){var t=0;Object.keys(cart).forEach(function(i){t+=S[i][1]*cart[i]/1000});boxes.forEach(function(b){t+=boxPrice(b)});return t}
+function count(){return Object.keys(cart).length+boxes.length}
+function totals(){$("bt").textContent=inr(total());var c=count();$("bi").textContent=c?c+(c==1?" item":" items"):"No items yet"}
+
+$("picks").innerHTML=[0,1,2,3].map(function(n){return '<label for="p'+n+'">Sweet '+(n+1)+'</label><select id="p'+n+'">'+S.map(function(s,i){return '<option value="'+i+'">'+s[0]+'</option>'}).join("")+'</select>'}).join("");
+for(var k=0;k<4;k++)$("p"+k).selectedIndex=k;
+function boxCalc(){var items=[0,1,2,3].map(function(n){return +$("p"+n).value}),q=Math.max(1,Math.min(20,parseInt($("bq").value)||1));
+var b={size:+$("bs").value,items:items,qty:q};$("bp").textContent="Box total: "+inr(boxPrice(b));return b}
+document.querySelectorAll("#box select,#box input").forEach(function(el){el.oninput=boxCalc});boxCalc();
+$("addbox").onclick=function(){var b=boxCalc();boxes.push(b);$("be").textContent="";totals();$("be").style.color="var(--p)";$("be").textContent="Box added! See it under My Order."};
+
+function lines(){var L=[];Object.keys(cart).forEach(function(i){L.push([S[i][0]+" · "+grams(cart[i]),S[i][1]*cart[i]/1000])});
+boxes.forEach(function(b){L.push([b.qty+" × "+(b.size==1?"Grand 1 kg":"Classic 500 g")+" box ("+b.items.map(function(i){return S[i][0]}).join(", ")+")",boxPrice(b)])});return L}
+function render(){var L=lines();$("sum").innerHTML=L.length?L.map(function(l,n){return '<div class="line"><span>'+esc(l[0])+'</span><b>'+inr(l[1])+'</b></div>'}).join("")+'<div class="line tot"><span>Total</span><span>'+inr(total())+'</span></div>':'<p class="sub" style="margin:0">Your order is empty. Add sweets from the Menu or build a Gift Box.</p>';
+$("done").hidden=true}
+function msg(){var L=lines().map(function(l){return "• "+l[0]+" – "+inr(l[1])}).join("\n");
+return "🪔 *New Diwali pre-order*\n"+(ref?"*Order ref: "+ref+"*\n":"")+"\nName: "+$("nm").value.trim()+"\nPhone: "+$("ph").value.trim()+"\nPickup: "+$("dt").value+", "+$("tm").value+"\n\n"+L+"\n\n*Total: "+inr(total())+"*"+($("nt").value.trim()?"\nNotes: "+$("nt").value.trim():"")}
+function valid(){var ok=true;["e1","e2","e3","e4"].forEach(function(e){$(e).textContent=""});
+if(!$("nm").value.trim()){$("e1").textContent="Please enter your name.";ok=false}
+if(!/^\d{10}$/.test($("ph").value.replace(/[\s-]/g,""))){$("e2").textContent="Enter a valid 10-digit mobile number.";ok=false}
+if(!$("dt").value||$("dt").value<$("dt").min){$("e3").textContent="Choose a pickup date from today onwards.";ok=false}
+if(!count()){$("e4").textContent="Add at least one item before ordering.";ok=false}
+return ok}
+$("f").onsubmit=function(e){e.preventDefault();if(!valid())return;var btn=$("f").querySelector("button[type=submit]"),u=$("upi"),w=$("wa");btn.disabled=true;btn.textContent="Placing order…";
+fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:$("nm").value.trim(),phone:$("ph").value.replace(/[\s-]/g,""),date:$("dt").value,time:$("tm").value,note:$("nt").value.trim(),cart:cart,boxes:boxes})})
+.then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Could not place the order. Please try again.");return j})})
+.then(function(j){ref=j.ref;$("ref").textContent=ref;var m=msg();$("txt").textContent=m;$("done").hidden=false;$("f").hidden=true;
+if(UPI){u.hidden=false;u.textContent="Pay "+inr(j.total)+" with UPI";u.href="upi://pay?pa="+encodeURIComponent(UPI)+"&pn="+encodeURIComponent("Mithai Shop")+"&am="+Number(j.total).toFixed(2)+"&cu=INR&tn="+encodeURIComponent("Order "+ref);$("un").textContent="Pay now with any UPI app to confirm your order."}else{u.hidden=true;$("un").textContent="We have received your order. Please pay at pickup."}
+if(WA){w.hidden=false;w.href="https://wa.me/"+WA+"?text="+encodeURIComponent(m)}
+cart={};boxes=[];drawList();totals();$("done").scrollIntoView({behavior:"smooth"})})
+.catch(function(err){$("e4").textContent=err.message||"Could not place the order. Please try again.";btn.disabled=false;btn.textContent="Place order"})};
+$("cp").onclick=function(){if(!valid())return;var m=msg();$("txt").textContent=m;$("done").hidden=false;try{navigator.clipboard.writeText(m)}catch(x){}};
+
+var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$("dt").min=d.toISOString().slice(0,10);
+document.querySelectorAll(".dots button").forEach(function(b){b.onclick=function(){var c=b.dataset.c.split(",");document.documentElement.style.setProperty("--p",c[0]);document.querySelector("header").style.background="linear-gradient(135deg,"+c[0]+","+c[1]+")"}});
+drawList();totals();
+var HH=location.hash.slice(1);if(HH=='box'||HH=='menu')tab(HH);
+</script></body></html>
