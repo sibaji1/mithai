@@ -1,1 +1,11 @@
-{ "name": "mithai-shop", "private": true, "version": "1.0.0", "dependencies": { "@netlify/blobs": "^8.1.0" } }
+{
+  "name": "mithai-shop",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "netlify deploy --prod --no-build --dir public --functions netlify/functions"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
