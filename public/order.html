@@ -147,7 +147,7 @@ if(!count()){$("e4").textContent="Add at least one item before ordering.";ok=fal
 return ok}
 $("f").onsubmit=function(e){e.preventDefault();if(!valid())return;var btn=$("f").querySelector("button[type=submit]"),u=$("upi"),w=$("wa");btn.disabled=true;btn.textContent="Placing order…";
 fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:$("nm").value.trim(),phone:$("ph").value.replace(/[\s-]/g,""),date:$("dt").value,time:$("tm").value,note:$("nt").value.trim(),cart:cart,boxes:boxes})})
-.then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||"Could not place the order. Please try again.");return j})})
+.then(function(r){return r.text().then(function(t){var j={};try{j=JSON.parse(t)}catch(x){}if(!r.ok||!j.ref)throw new Error(j.error||"The order service is not available right now (code "+r.status+"). Please try again or contact the shop.");return j})})
 .then(function(j){ref=j.ref;$("ref").textContent=ref;var m=msg();$("txt").textContent=m;$("done").hidden=false;$("f").hidden=true;
 if(UPI){u.hidden=false;u.textContent="Pay "+inr(j.total)+" with UPI";u.href="upi://pay?pa="+encodeURIComponent(UPI)+"&pn="+encodeURIComponent("Mithai Shop")+"&am="+Number(j.total).toFixed(2)+"&cu=INR&tn="+encodeURIComponent("Order "+ref);$("un").textContent="Pay now with any UPI app to confirm your order."}else{u.hidden=true;$("un").textContent="We have received your order. Please pay at pickup."}
 if(WA){w.hidden=false;w.href="https://wa.me/"+WA+"?text="+encodeURIComponent(m)}
