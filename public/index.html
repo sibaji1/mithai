@@ -59,6 +59,7 @@ h2{font-size:clamp(28px,5vw,40px);text-align:center;color:var(--p)}
 .sw::before{content:"";position:absolute;inset:5px;border:1px dashed var(--gold);border-radius:19px;pointer-events:none}
 .sw:hover{transform:translateY(-8px) rotate(-1.5deg);box-shadow:0 14px 30px #ff8a0044;border-color:var(--gold)}
 .sw svg{display:block;margin:0 auto 8px;filter:drop-shadow(0 4px 4px #0003)}
+.sw img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:16px;margin:0 auto 12px}
 .sw b{display:block}.sw span{color:var(--p);font-weight:700;font-size:18px}
 .best{position:absolute;top:-10px;right:-6px;background:#e11d48;color:#fff;font-size:11px;padding:3px 10px;border-radius:12px;transform:rotate(6deg);z-index:2}
 .boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
@@ -123,7 +124,9 @@ footer b{color:#ffd23f;font-size:22px}
 <footer><b class="brand">Mithai Shop</b><p>📍 Your shop address here · 📞 Your phone number<br>Shop hours: 9 am – 9 pm<br>🪔 Wishing you a sweet &amp; sparkling Diwali 🪔</p><p style="font-size:12px;opacity:.7"><a href="owner.html">Shop owner login</a></p></footer>
 <script>
 var S=[["Kaju Katli",1200,"#e9d9b0","d"],["Motichoor Ladoo",400,"#ff9f1c","b"],["Besan Ladoo",400,"#e0a526","b"],["Soan Papdi",400,"#f4d58d","r"],["Gulab Jamun",400,"#7a2e0a","o"],["Rasgulla",400,"#fffdf5","w"]];
-function ic(x){var c=x[2],s=x[3],h="";
+function ic(x){var photos={"Kaju Katli":"images/kaju-katli.avif","Motichoor Ladoo":"images/motichoor-ladoo.jpeg"};
+if(photos[x[0]])return '<img src="'+photos[x[0]]+'" alt="'+x[0]+'" width="320" height="320" loading="lazy" decoding="async">';
+var c=x[2],s=x[3],h="";
 if(s=="d")h='<path d="M8 28L28 8l20 20-20 20z" fill="'+c+'" stroke="#c9a227" stroke-width="2"/><circle cx="28" cy="28" r="4" fill="#9ccc65"/>';
 if(s=="b")h='<circle cx="28" cy="28" r="18" fill="'+c+'"/><g fill="#fff" opacity=".5"><circle cx="21" cy="22" r="2"/><circle cx="33" cy="19" r="2"/><circle cx="35" cy="31" r="2"/></g><circle cx="28" cy="28" r="3" fill="#2e7d32"/>';
 if(s=="r")h='<rect x="8" y="14" width="40" height="28" rx="4" fill="'+c+'" stroke="#d9b45a" stroke-width="2"/><path d="M12 22h32M12 28h32M12 34h32" stroke="#d9b45a" stroke-width="1.5"/>';
