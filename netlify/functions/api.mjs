@@ -41,9 +41,9 @@ async function create(b, store) {
 }
 
 export default async (req) => {
-  const store = getStore("orders");
   const path = new URL(req.url).pathname.replace(/\/+$/, "");
   try {
+    const store = getStore("orders");
     if (path === "/api/orders" && req.method === "POST") {
       const b = await req.json().catch(() => null);
       return b ? create(b, store) : bad("Invalid request.");
@@ -70,7 +70,7 @@ export default async (req) => {
       return J(o);
     }
     return J({ error: "Not found" }, 404);
-  } catch (e) { return J({ error: "Server error" }, 500); }
+  } catch (e) { console.error("api error:", e); return J({ error: "Server error: " + String((e && e.message) || e).slice(0, 200) }, 500); }
 };
 
 export const config = { path: "/api/*" };
